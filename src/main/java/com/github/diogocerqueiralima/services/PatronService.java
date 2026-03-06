@@ -8,6 +8,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Service class responsible for managing patrons in the library management system.
+ * @see Patron
+ * @see PatronRepository
+ */
 public class PatronService {
 
     private final PatronRepository patronRepository;
@@ -34,10 +39,20 @@ public class PatronService {
         patronRepository.save(patron);
     }
 
+    /**
+     *
+     * Deletes the patron with the specified unique identifier from the library management system.
+     * If the patron with the given ID does not exist, it will be ignored and no action will be taken.
+     *
+     * @param id the unique identifier of the patron to be deleted
+     */
     public void delete(UUID id) {
         patronRepository.delete(id);
     }
 
+    /**
+     * @return a list of all patrons in the library management system. If there are no patrons, an empty list will be returned.
+     */
     public List<Patron> getAll() {
         return patronRepository.findAll();
     }

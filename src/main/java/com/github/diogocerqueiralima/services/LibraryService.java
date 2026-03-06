@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Service class that handles the business logic for borrowing and returning books in the library management system.
+ * @see BookRepository
+ * @see PatronRepository
+ */
 public class LibraryService {
 
     private final BookRepository bookRepository;

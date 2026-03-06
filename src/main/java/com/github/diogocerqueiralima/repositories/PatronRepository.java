@@ -4,7 +4,6 @@ import com.github.diogocerqueiralima.exceptions.CouldNotDeletePatronException;
 import com.github.diogocerqueiralima.exceptions.CouldNotRetrievePatronException;
 import com.github.diogocerqueiralima.exceptions.CouldNotSavePatronException;
 import com.github.diogocerqueiralima.model.Book;
-import com.github.diogocerqueiralima.model.BookStatus;
 import com.github.diogocerqueiralima.model.Patron;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
