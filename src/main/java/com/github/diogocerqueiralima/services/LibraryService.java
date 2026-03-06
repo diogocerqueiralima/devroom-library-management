@@ -23,6 +23,13 @@ public class LibraryService {
         this.patronRepository = patronRepository;
     }
 
+    /**
+     *
+     * Borrows a book for a patron.
+     *
+     * @param patronId the ID of the patron who wants to borrow the book
+     * @param bookId the ID of the book to be borrowed
+     */
     public void borrow(UUID patronId, UUID bookId) {
 
         // 1. Get the patron and book from the repositories
@@ -44,6 +51,33 @@ public class LibraryService {
         // 4. Add the book to the patron's list of checked out books and save the patron back to the repository
         List<Book> checkedOutBooks = new ArrayList<>(patron.getCheckedOutBooks());
         checkedOutBooks.add(book);
+        patron = new Patron(patron.getId(), patron.getName(), checkedOutBooks);
+        patronRepository.save(patron);
+    }
+
+    /**
+     *
+     * Returns a book for a patron.
+     *
+     * @param patronId the ID of the patron who wants to return the book
+     * @param bookId the ID of the book to be returned
+     */
+    public void returnBook(UUID patronId, UUID bookId) {
+
+        // 1. Get the patron and book from the repositories
+        Patron patron = patronRepository.findById(patronId)
+                .orElseThrow(() -> new PatronNotFoundException(patronId));
+
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
+
+        // 2. Update the book's status to AVAILABLE and save it back to the repository
+        book = new Book(book.getId(), book.getTitle(), book.getAuthor(), book.getYear(), BookStatus.AVAILABLE);
+        bookRepository.save(book);
+
+        // 3. Remove the book from the patron's list of checked out books and save the patron back to the repository
+        List<Book> checkedOutBooks = new ArrayList<>(patron.getCheckedOutBooks());
+        checkedOutBooks.removeIf(b -> b.getId().equals(bookId));
         patron = new Patron(patron.getId(), patron.getName(), checkedOutBooks);
         patronRepository.save(patron);
     }

@@ -68,4 +68,54 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    /**
+     *
+     * Retrieves a list of all books that are currently available for borrowing in the library management system.
+     *
+     * @return a list of all available books in the library management system
+     */
+    public List<Book> getAvailableBooks() {
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getStatus() == BookStatus.AVAILABLE)
+                .toList();
+    }
+
+    /**
+     *
+     * Retrieves a list of all books that are currently checked out by patrons in the library management system.
+     *
+     * @return a list of all checked out books in the library management system
+     */
+    public List<Book> getCheckedOutBooks() {
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getStatus() == BookStatus.CHECKED_OUT)
+                .toList();
+    }
+
+    /**
+     *
+     * Retrieves a list of all books written by the specified author in the library management system.
+     *
+     * @param author the name of the author whose books are to be retrieved
+     * @return a list of all books written by the specified author in the library management system
+     */
+    public List<Book> getAllByAuthor(String author) {
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getAuthor().equalsIgnoreCase(author))
+                .toList();
+    }
+
+    /**
+     *
+     * Retrieves a list of all books with the specified title in the library management system.
+     *
+     * @param title the title of the books to be retrieved
+     * @return a list of all books with the specified title in the library management system
+     */
+    public List<Book> getAllByTitle(String title) {
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getTitle().equalsIgnoreCase(title))
+                .toList();
+    }
+
 }

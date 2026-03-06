@@ -89,19 +89,63 @@ public class LibraryManagementApplication {
                         });
                     }
                     case 4 -> {
+                        bookService.getAvailableBooks().forEach(book -> {
+                            System.out.println("ID: " + book.getId());
+                            System.out.println("Title: " + book.getTitle());
+                            System.out.println("Author: " + book.getAuthor());
+                            System.out.println("Year: " + book.getYear());
+                            System.out.println();
+                        });
+                    }
+                    case 5 -> {
+                        bookService.getCheckedOutBooks().forEach(book -> {
+                            System.out.println("ID: " + book.getId());
+                            System.out.println("Title: " + book.getTitle());
+                            System.out.println("Author: " + book.getAuthor());
+                            System.out.println("Year: " + book.getYear());
+                            System.out.println();
+                        });
+                    }
+                    case 6 -> {
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.println("Enter author name:");
+                        String author = scanner.nextLine();
+                        bookService.getAllByAuthor(author).forEach(book -> {
+                            System.out.println("ID: " + book.getId());
+                            System.out.println("Title: " + book.getTitle());
+                            System.out.println("Author: " + book.getAuthor());
+                            System.out.println("Year: " + book.getYear());
+                            System.out.println("Status: " + book.getStatus());
+                            System.out.println();
+                        });
+                    }
+                    case 7 -> {
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.println("Enter book title:");
+                        String title = scanner.nextLine();
+                        bookService.getAllByTitle(title).forEach(book -> {
+                            System.out.println("ID: " + book.getId());
+                            System.out.println("Title: " + book.getTitle());
+                            System.out.println("Author: " + book.getAuthor());
+                            System.out.println("Year: " + book.getYear());
+                            System.out.println("Status: " + book.getStatus());
+                            System.out.println();
+                        });
+                    }
+                    case 8 -> {
                         Scanner scanner = new Scanner(System.in);
                         System.out.println("Enter book ID to delete:");
                         UUID id = UUID.fromString(scanner.nextLine());
                         bookService.delete(id);
                     }
-                    case 5 -> {
+                    case 9 -> {
                         Scanner scanner = new Scanner(System.in);
                         System.out.println("Enter patron name:");
                         String name = scanner.nextLine();
                         Patron patron = patronService.add(name);
                         System.out.println("Patron added with ID: " + patron.getId());
                     }
-                    case 6 -> {
+                    case 10 -> {
                         Scanner scanner = new Scanner(System.in);
                         System.out.println("Enter patron ID to update:");
                         UUID id = UUID.fromString(scanner.nextLine());
@@ -109,13 +153,13 @@ public class LibraryManagementApplication {
                         String name = scanner.nextLine();
                         patronService.update(id, name);
                     }
-                    case 7 -> {
+                    case 11 -> {
                         Scanner scanner = new Scanner(System.in);
                         System.out.println("Enter patron ID to delete:");
                         UUID id = UUID.fromString(scanner.nextLine());
                         patronService.delete(id);
                     }
-                    case 8 -> {
+                    case 12 -> {
                         patronService.getAll().forEach(patron -> {
                             System.out.println("ID: " + patron.getId());
                             System.out.println("Name: " + patron.getName());
@@ -123,13 +167,21 @@ public class LibraryManagementApplication {
                             System.out.println();
                         });
                     }
-                    case 9 -> {
+                    case 13 -> {
                         Scanner scanner = new Scanner(System.in);
                         System.out.println("Enter patron ID:");
                         UUID patronId = UUID.fromString(scanner.nextLine());
                         System.out.println("Enter book ID:");
                         UUID bookId = UUID.fromString(scanner.nextLine());
                         libraryService.borrow(patronId, bookId);
+                    }
+                    case 14 -> {
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.println("Enter patron ID:");
+                        UUID patronId = UUID.fromString(scanner.nextLine());
+                        System.out.println("Enter book ID:");
+                        UUID bookId = UUID.fromString(scanner.nextLine());
+                        libraryService.returnBook(patronId, bookId);
                     }
                     case 99 -> System.exit(0);
                 }
@@ -163,16 +215,21 @@ public class LibraryManagementApplication {
         System.out.println("\t1 - Add a new book");
         System.out.println("\t2 - Update a book");
         System.out.println("\t3 - List all books");
-        System.out.println("\t4 - Delete a book");
+        System.out.println("\t4 - List all available books");
+        System.out.println("\t5 - List all checked out books");
+        System.out.println("\t6 - List all books by a specific author");
+        System.out.println("\t7 - List all books with a specific title");
+        System.out.println("\t8 - Delete a book");
         System.out.println();
         System.out.println("b) Patrons");
-        System.out.println("\t5 - Add a new patron");
-        System.out.println("\t6 - Update a patron");
-        System.out.println("\t7 - Delete a patron");
-        System.out.println("\t8 - List all patrons");
+        System.out.println("\t9 - Add a new patron");
+        System.out.println("\t10 - Update a patron");
+        System.out.println("\t11 - Delete a patron");
+        System.out.println("\t12 - List all patrons");
         System.out.println();
         System.out.println("c) Library");
-        System.out.println("\t9 - Check out a book");
+        System.out.println("\t13 - Check out a book");
+        System.out.println("\t14 - Return a book");
         System.out.println();
         System.out.println("Exit - 99");
 
